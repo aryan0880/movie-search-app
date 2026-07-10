@@ -1,0 +1,21 @@
+.search-wrapper input {
+  width: 300px;
+  background: #111111;
+  border: none;
+  border-bottom: 1px solid #2a2a2a;
+  color: #ffffff;
+  font-family: calibri, sans-serif;
+  font-size: 18px;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0;
+  transition: border-bottom-color 0.3s ease;
+}
+
+.search-wrapper input::placeholder {
+  color: #444;
+}
+
+.search-wrapper input:focus {
+  outline: none;
+  border-bottom-color: #F5C518;
+}

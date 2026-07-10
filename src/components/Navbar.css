@@ -1,0 +1,68 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1000;
+  height: 70px;
+  background: #0d0d0d;
+  border-bottom: 1px solid #1f1f1f;
+  border-top: 2px solid #F5C518;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+}
+
+.navbar-logo {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 700;
+  font-size: 30px;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  flex-shrink: 0;
+}
+
+.navbar-logo span {
+  color: #F5C518;
+}
+
+.navbar-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.nav-favourites {
+  color:white;
+  font-size: 20px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s ease;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.nav-favourites:hover {
+  color: #F5C518;
+}
+
+.fav-badge {
+  background: #F5C518;
+  color: #000;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  border-radius: 50%;
+  padding: 2px 6px;
+  margin-left: 6px;
+  line-height: 1;
+  font-weight: 700;
+}

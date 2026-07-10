@@ -1,0 +1,26 @@
+.home {
+  padding: 90px 2rem 2rem;
+  min-height: 100vh;
+}
+
+.movies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1.5rem;
+}
+
+.error-text {
+  color: #e74c3c;
+  text-align: center;
+  margin-top: 4rem;
+  font-size: 1rem;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.empty-text {
+  color: #666;
+  text-align: center;
+  margin-top: 4rem;
+  font-size: 1rem;
+  font-family: 'JetBrains Mono', monospace;
+}
