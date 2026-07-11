@@ -1,15 +1,17 @@
 import React from 'react';
 import './MovieCard.css';
+import { useFavourites } from '../context/FavouritesContext';
 
 const POSTER_BASE = 'https://image.tmdb.org/t/p/w500';
 
 const MovieCard = ({ movie }) => {
+  const { addFavourite, removeFavourite, isFavourite } = useFavourites();
   const year = movie.release_date?.slice(0, 4);
   const rating = movie.vote_average?.toFixed(1);
   const hasPoster = !!movie.poster_path;
 
-  return (
-    <div className="movie-card">
+return (
+      <div className="movie-card">
       <div className="card-poster">
         {hasPoster ? (
           <img
@@ -20,6 +22,17 @@ const MovieCard = ({ movie }) => {
         ) : (
           <div className="no-poster">No Poster</div>
         )}
+        <button
+          className={`fav-btn ${isFavourite(movie.id) ? 'active' : ''}`}
+          onClick={(e) => {
+            e.stopPropagation();
+            isFavourite(movie.id)
+              ? removeFavourite(movie.id)
+              : addFavourite(movie);
+          }}
+        >
+          🤍
+        </button>
         <div className="card-overlay">
           <h3 className="card-title">{movie.title}</h3>
           <div className="card-meta">

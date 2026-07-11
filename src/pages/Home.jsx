@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import MovieCard from '../components/MovieCard';
+import SkeletonCard from '../components/SkeletonCard';
 import useFetch from '../hooks/useFetch';
 import './Home.css';
 
@@ -26,9 +27,12 @@ const Home = ({ searchQuery, onSearch }) => {
 
       {!error && (
         <div className="movies-grid">
-          {movies.map((movie) => (
-            <MovieCard key={movie.id} movie={movie} />
-          ))}
+          {loading
+            ? Array(12).fill(0).map((_, i) => <SkeletonCard key={i} />)
+            : movies.map((movie) => (
+                <MovieCard key={movie.id} movie={movie} />
+              ))
+          }
         </div>
       )}
     </div>
