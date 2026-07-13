@@ -15,7 +15,7 @@
 }
 
 .favourites-header h1 {
-  font-family: 'DM Sans', sans-serif;
+  font-family: cursive;
   font-size: 1.5rem;
   font-weight: 700;
   color: #fff;
@@ -61,4 +61,85 @@
   font-size: 0.8rem;
   color: #444;
   margin: 0;
+}
+
+/* ── Laptop (≤1024px) ─────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .favourites-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 1.25rem;
+  }
+}
+
+/* ── Tablet (≤768px) ──────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .favourites-page {
+    padding: 1.25rem;
+    padding-top: 130px;
+  }
+
+  .favourites-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 1rem;
+  }
+
+  .favourites-header h1 {
+    font-size: 1.25rem;
+  }
+
+  .fav-total {
+    font-size: 1.1rem;
+  }
+}
+
+/* ── Mobile (≤480px) ──────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .favourites-page {
+    padding: 0.75rem;
+    padding-top: 150px;
+  }
+
+  .favourites-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+
+  .favourites-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .favourites-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .fav-total {
+    font-size: 1rem;
+  }
+
+  .empty-icon {
+    font-size: 2.5rem;
+  }
+
+  .empty-title {
+    font-size: 1rem;
+  }
+
+  .empty-sub {
+    font-size: 0.75rem;
+  }
+}
+
+/* ── Small Mobile (≤360px) ────────────────────────────────────── */
+@media (max-width: 360px) {
+  .favourites-page {
+    padding-top: 160px;
+  }
+
+  .favourites-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
 }

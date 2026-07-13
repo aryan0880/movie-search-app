@@ -43,3 +43,25 @@
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite linear;
 }
+
+/* ── Tablet (≤768px) ──────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .skeleton-title {
+    width: 80%;
+  }
+
+  .skeleton-meta {
+    width: 50%;
+  }
+}
+
+/* ── Mobile (≤480px) ──────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .skeleton-title {
+    height: 12px;
+  }
+
+  .skeleton-meta {
+    height: 10px;
+  }
+}

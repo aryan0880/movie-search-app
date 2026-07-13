@@ -48,7 +48,7 @@
   display: flex;
   align-items: center;
   transition: color 0.2s ease;
-  font-family: 'DM Sans', sans-serif;
+  font-family: cursive;
 }
 
 .nav-favourites:hover {
@@ -63,6 +63,69 @@
   border-radius: 50%;
   padding: 2px 6px;
   margin-left: 6px;
-  line-height: 1;
+  line-height: 1.5;
   font-weight: 700;
+}
+
+/* ── Laptop (≤1024px) ─────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .search-wrapper input {
+    width: 260px;
+  }
+}
+
+/* ── Tablet (≤768px) ──────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .navbar {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 0.75rem 1.25rem;
+    align-items: center;
+  }
+
+  .navbar-logo {
+    font-size: 1.2rem;
+  }
+
+  /* Row 1: logo (left) + favourites (right) */
+  .navbar-right {
+    margin-left: auto;
+  }
+
+  /* Row 2: search bar full-width below */
+  .navbar-center {
+    width: 100%;
+    margin-top: 0.5rem;
+    justify-content: flex-start;
+  }
+
+  .navbar-center .search-wrapper {
+    width: 90%;
+    margin-left:12px;
+  }
+
+  .navbar-center .search-wrapper input {
+    width: 90%;
+    box-sizing: border-box;
+  }
+}
+
+/* ── Mobile (≤480px) ──────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .navbar {
+    padding: 0.6rem 1rem;
+  }
+
+  .navbar-logo {
+    font-size: 1rem;
+  }
+
+  .nav-favourites {
+    font-size: 0.8rem;
+  }
+
+  .fav-badge {
+    font-size: 0.75rem;
+    padding: 1px 5px;
+  }
 }

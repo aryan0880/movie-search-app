@@ -114,3 +114,47 @@
 .fav-btn.active {
   color: yellow;  
 }
+
+/* ── Tablet (≤768px) ──────────────────────────────────────────── */
+@media (max-width: 768px) {
+  /* Always show overlay on touch — no hover available */
+  .card-overlay {
+    transform: translateY(0);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.98) 0%, transparent 100%);
+  }
+
+  .card-title {
+    font-size: 0.8rem;
+  }
+
+  .card-year {
+    font-size: 0.7rem;
+  }
+
+  .card-rating {
+    font-size: 0.7rem;
+  }
+
+  .fav-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 0.9rem;
+  }
+}
+
+/* ── Mobile (≤480px) ──────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .card-title {
+    font-size: 0.75rem;
+  }
+
+  .card-overlay {
+    padding: 1.5rem 0.5rem 0.5rem;
+  }
+
+  .fav-btn {
+    width: 24px;
+    height: 24px;
+    font-size: 0.8rem;
+  }
+}
