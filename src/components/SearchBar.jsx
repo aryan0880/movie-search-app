@@ -1,29 +1,27 @@
-import React, { useState, useRef, useEffect } from 'react';
-import './SearchBar.css';
+import { useState, useEffect, useRef } from 'react'
 
-const SearchBar = ({ onSearch }) => {
-  const [query, setQuery] = useState('');
-  const inputRef = useRef(null);
+function SearchBar({ onSearch }) {
+  const [query, setQuery] = useState('')
+  const timerRef = useRef(null)
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      onSearch(query);
-    }, 500);
-
-    return () => clearTimeout(timer);
-  }, [query, onSearch]);
+    timerRef.current = setTimeout(() => {
+      onSearch(query)
+    }, 500)
+    return () => clearTimeout(timerRef.current)
+  }, [query])
 
   return (
-    <div className="search-wrapper">
+    <div className="w-[320px]">
       <input
-        ref={inputRef}
         type="text"
-        placeholder="Search movies..."
         value={query}
         onChange={(e) => setQuery(e.target.value)}
+        placeholder="Search movies..."
+        className="w-full bg-[#111] text-white text-sm font-sans placeholder-[#444] px-3 py-2 border-b border-[#2a2a2a] focus:border-gold focus:outline-none transition-colors duration-200"
       />
     </div>
-  );
-};
+  )
+}
 
-export default SearchBar;
+export default SearchBar

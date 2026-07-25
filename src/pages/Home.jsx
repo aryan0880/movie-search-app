@@ -1,42 +1,59 @@
-import React, { useState, useCallback } from 'react';
-import MovieCard from '../components/MovieCard';
-import SkeletonCard from '../components/SkeletonCard';
-import useFetch from '../hooks/useFetch';
-import './Home.css';
+import { useState, useMemo } from 'react'
+import MovieCard from '../components/MovieCard'
+import SkeletonCard from '../components/SkeletonCard'
+import useFetch from '../hooks/useFetch'
 
-const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
-const BASE_URL = 'https://api.themoviedb.org/3';
+const API_KEY = import.meta.env.VITE_TMDB_API_KEY
 
-const Home = ({ searchQuery, onSearch }) => {
+function Home({ searchQuery }) {
   const url = searchQuery
-    ? `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(searchQuery)}`
-    : `${BASE_URL}/movie/popular?api_key=${API_KEY}`;
+    ? `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${searchQuery}`
+    : `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`
 
-  const { data, loading, error } = useFetch(url);
-  const movies = data?.results ?? [];
+  const { data, loading, error } = useFetch(url)
+  const movies = data?.results || []
 
   return (
-    <div className="home">
-      {error && (
-        <p className="error-text">Something went wrong. Try again.</p>
-      )}
+    <main className="pt-24 px-6 pb-8 max-w-[1400px] mx-auto">
 
-      {!error && !loading && movies.length === 0 && searchQuery && (
-        <p className="empty-text">No movies found for &ldquo;{searchQuery}&rdquo;</p>
-      )}
-
-      {!error && (
-        <div className="movies-grid">
-          {loading
-            ? Array(12).fill(0).map((_, i) => <SkeletonCard key={i} />)
-            : movies.map((movie) => (
-                <MovieCard key={movie.id} movie={movie} />
-              ))
-          }
+      {/* Hero text */}
+      {!searchQuery && (
+        <div className="mb-6">
+          <h1 className="text-white text-3xl font-bold font-sans">
+            Discover your next favourite film.
+          </h1>
+          <p className="text-[#666] text-[0.8rem] font-mono mt-1">
+            Trending today
+          </p>
         </div>
       )}
-    </div>
-  );
-};
 
-export default Home;
+      {/* Error */}
+      {error && (
+        <p className="text-center text-[#666] font-mono text-sm mt-16">
+          API is having a bad day. Try again.
+        </p>
+      )}
+
+      {/* Empty */}
+      {!loading && !error && movies.length === 0 && searchQuery && (
+        <p className="text-center text-[#666] font-mono text-sm mt-16">
+          No results for "{searchQuery}"
+        </p>
+      )}
+
+      {/* Grid */}
+      <div className="grid gap-5"
+        style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(185px, 1fr))' }}
+      >
+        {loading
+          ? Array(12).fill(0).map((_, i) => <SkeletonCard key={i} />)
+          : movies.map(movie => <MovieCard key={movie.id} movie={movie} />)
+        }
+      </div>
+
+    </main>
+  )
+}
+
+export default Home
