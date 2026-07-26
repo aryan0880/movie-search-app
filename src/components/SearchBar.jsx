@@ -12,7 +12,7 @@ function SearchBar({ onSearch }) {
   }, [query])
 
   return (
-    <div className="w-[320px]">
+    <div className="w-full md:w-auto md:flex-1 md:max-w-[400px]">
       <input
         type="text"
         value={query}

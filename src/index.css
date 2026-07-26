@@ -4,8 +4,58 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Base Theme ───────────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background-color: #080808;
   color: #ffffff;
   font-family: 'DM Sans', sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Light mode overrides */
+html:not(.dark) body {
+  background-color: #f5f5f5;
+  color: #111111;
+}
+
+html:not(.dark) header {
+  background-color: #ffffff !important;
+  border-color: #e5e5e5 !important;
+}
+
+html:not(.dark) input {
+  color: #111 !important;
+  border-color: #ddd !important;
+}
+
+html:not(.dark) input::placeholder {
+  color: #aaa !important;
+}
+
+/* ── Scrollbar ────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #222;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #F5C518;
+}
+
+/* ── Selection ────────────────────────────────────────────────── */
+::selection {
+  background-color: rgba(245, 197, 24, 0.3);
+  color: #fff;
 }

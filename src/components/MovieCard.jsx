@@ -26,14 +26,24 @@ function MovieCard({ movie }) {
           </div>
       }
 
+      {/* Rating Badge */}
+      {rating && (
+        <div className="absolute top-2 left-2 bg-gold text-black text-[0.65rem] font-mono font-bold px-[7px] py-[3px] rounded z-10 leading-none">
+          ★ {rating}
+        </div>
+      )}
+
       {/* Fav Button */}
       <button
         onClick={(e) => {
           e.stopPropagation()
           isFav ? removeFavourite(movie.id) : addFavourite(movie)
         }}
-        className={`absolute top-2 right-2 w-[30px] h-[30px] rounded-full bg-black/60 border-none flex items-center justify-center text-[0.9rem] transition-all duration-200 hover:scale-125
-          ${isFav ? 'text-gold' : 'text-[#333] hover:text-gold'}`}
+        className={`absolute top-2 right-2 w-[32px] h-[32px] rounded-full flex items-center justify-center text-[1rem] transition-all duration-200 hover:scale-125 z-10 border
+          ${isFav
+            ? 'bg-gold text-black border-gold'
+            : 'bg-black/70 text-white border-[#333] hover:border-gold hover:text-gold'
+          }`}
       >
         ♥
       </button>

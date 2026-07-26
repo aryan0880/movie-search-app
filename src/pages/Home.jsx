@@ -19,7 +19,7 @@ function Home({ searchQuery }) {
       {/* Hero text */}
       {!searchQuery && (
         <div className="mb-6">
-          <h1 className="text-white text-3xl font-bold font-sans">
+          <h1 className="text-white text-xl md:text-3xl font-bold font-sans tracking-tight">
             Discover your next favourite film.
           </h1>
           <p className="text-[#666] text-[0.8rem] font-mono mt-1">
@@ -44,7 +44,7 @@ function Home({ searchQuery }) {
 
       {/* Grid */}
       <div className="grid gap-5"
-        style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(185px, 1fr))' }}
+        style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))' }}
       >
         {loading
           ? Array(12).fill(0).map((_, i) => <SkeletonCard key={i} />)
