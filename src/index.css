@@ -1,61 +1,159 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* ── Base Theme ───────────────────────────────────────────────── */
+/* ── CSS Variables ────────────────────────────────────────────── */
+:root {
+  --gold: #f5c518;
+  --gold-dim: rgba(245, 197, 24, 0.15);
+  --bg: #080808;
+  --surface: #101010;
+  --surface2: #181818;
+  --border: #1e1e1e;
+  --text: #ffffff;
+  --muted: #666666;
+  --muted2: #444444;
+}
+
+html.light {
+  --bg: #f0f0f0;
+  --surface: #ffffff;
+  --surface2: #f5f5f5;
+  --border: #e0e0e0;
+  --text: #0a0a0a;
+  --muted: #666666;
+  --muted2: #999999;
+}
+
+/* ── Base ─────────────────────────────────────────────────────── */
 html {
   scroll-behavior: smooth;
 }
 
 body {
-  background-color: #080808;
-  color: #ffffff;
-  font-family: 'DM Sans', sans-serif;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-/* Light mode overrides */
-html:not(.dark) body {
-  background-color: #f5f5f5;
-  color: #111111;
-}
-
-html:not(.dark) header {
-  background-color: #ffffff !important;
-  border-color: #e5e5e5 !important;
-}
-
-html:not(.dark) input {
-  color: #111 !important;
-  border-color: #ddd !important;
-}
-
-html:not(.dark) input::placeholder {
-  color: #aaa !important;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: "Inter", sans-serif;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+  -webkit-font-smoothing: antialiased;
 }
 
 /* ── Scrollbar ────────────────────────────────────────────────── */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 5px;
 }
-
 ::-webkit-scrollbar-track {
-  background: #0a0a0a;
+  background: var(--bg);
 }
-
 ::-webkit-scrollbar-thumb {
-  background: #222;
-  border-radius: 3px;
+  background: #2a2a2a;
+  border-radius: 99px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
-  background: #F5C518;
+  background: var(--gold);
 }
 
 /* ── Selection ────────────────────────────────────────────────── */
 ::selection {
-  background-color: rgba(245, 197, 24, 0.3);
+  background-color: rgba(245, 197, 24, 0.25);
   color: #fff;
+}
+
+/* ── Shimmer animation for skeleton ──────────────────────────── */
+@keyframes shimmer {
+  0% {
+    background-position: -600px 0;
+  }
+  100% {
+    background-position: 600px 0;
+  }
+}
+
+.skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--surface2) 25%,
+    #222 50%,
+    var(--surface2) 75%
+  );
+  background-size: 600px 100%;
+  animation: shimmer 1.6s infinite linear;
+}
+
+html.light .skeleton-shimmer {
+  background: linear-gradient(90deg, #e8e8e8 25%, #d0d0d0 50%, #e8e8e8 75%);
+  background-size: 600px 100%;
+  animation: shimmer 1.6s infinite linear;
+}
+
+/* ── Fade-in animation ────────────────────────────────────────── */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-up {
+  animation: fadeUp 0.5s ease both;
+}
+
+/* ── Card glow on hover ───────────────────────────────────────── */
+@keyframes cardGlow {
+  from {
+    box-shadow: 0 0 0 0 rgba(245, 197, 24, 0);
+  }
+  to {
+    box-shadow: 0 8px 32px -4px rgba(245, 197, 24, 0.18);
+  }
+}
+
+/* ── Hero gradient text ───────────────────────────────────────── */
+.gradient-text {
+  background: linear-gradient(135deg, #ffffff 0%, #f5c518 60%, #e09c00 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Pulse ring on favourite button ──────────────────────────── */
+@keyframes pulseRing {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(245, 197, 24, 0.6);
+  }
+  70% {
+    transform: scale(1.15);
+    box-shadow: 0 0 0 8px rgba(245, 197, 24, 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(245, 197, 24, 0);
+  }
+}
+
+.fav-pulse {
+  animation: pulseRing 0.4s ease;
+}
+
+/* ── Navbar glass ─────────────────────────────────────────────── */
+.navbar-glass {
+  background: rgba(8, 8, 8, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+html.light .navbar-glass {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }

@@ -1,10 +1,16 @@
 function SkeletonCard() {
   return (
-    <div className="rounded-[10px] overflow-hidden bg-[#111]">
-      <div className="w-full pb-[150%] bg-[#151515] animate-pulse" />
-      <div className="p-3 space-y-2">
-        <div className="h-[13px] w-[70%] bg-[#1a1a1a] rounded animate-pulse" />
-        <div className="h-[11px] w-[40%] bg-[#1a1a1a] rounded animate-pulse" />
+    <div
+      className="rounded-xl overflow-hidden"
+      style={{ background: 'var(--surface)', border: '1px solid var(--border)' }}
+    >
+      {/* Poster area */}
+      <div className="skeleton-shimmer rounded-t-xl" style={{ aspectRatio: '2/3' }} />
+
+      {/* Footer */}
+      <div className="px-3 py-2.5 space-y-2">
+        <div className="skeleton-shimmer h-[13px] w-[75%] rounded-md" />
+        <div className="skeleton-shimmer h-[10px] w-[40%] rounded-md" />
       </div>
     </div>
   )
