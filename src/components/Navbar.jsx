@@ -51,14 +51,19 @@ function Navbar({ onSearch }) {
 
         {/* Right controls */}
         <div className="flex items-center gap-3 order-2 md:order-3 ml-auto md:ml-0 shrink-0">
-          {/* Dark/Light toggle */}
+          {/* Dark/Light toggle pill */}
           <button
             id="theme-toggle"
             onClick={() => setDark(!dark)}
-            title="Toggle theme"
-            className="w-9 h-9 rounded-full flex items-center justify-center border border-[var(--border)] text-[var(--muted)] hover:text-[#F5C518] hover:border-[#F5C518] transition-all duration-200 text-base"
+            title={dark ? 'Switch to light mode' : 'Switch to dark mode'}
+            className={`theme-toggle${!dark ? ' is-light' : ''}`}
+            aria-label="Toggle theme"
           >
-            {dark ? '☀️' : '🌙'}
+            <span className="toggle-icons">
+              <span>🌙</span>
+              <span>☀️</span>
+            </span>
+            <span className="toggle-thumb" />
           </button>
 
           {/* Favourites */}
