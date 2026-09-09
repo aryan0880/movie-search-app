@@ -94,8 +94,7 @@ function Favourites() {
         {/* Movies Grid */}
         {favourites.length > 0 && (
           <motion.div
-            className="grid gap-5"
-            style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(170px, 1fr))' }}
+            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 sm:gap-5"
             variants={containerVariants}
             initial="hidden"
             animate="visible"
