@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 
 function SearchBar({ onSearch }) {
   const [query, setQuery] = useState('')
@@ -21,19 +22,20 @@ function SearchBar({ onSearch }) {
 
   return (
     <div
-      className="relative flex items-center w-full"
-      style={{
-        borderRadius: '10px',
-        border: `1.5px solid ${focused ? '#F5C518' : 'var(--border)'}`,
-        background: 'var(--surface)',
-        transition: 'border-color 0.2s ease, box-shadow 0.2s ease',
-        boxShadow: focused ? '0 0 0 3px rgba(245,197,24,0.1)' : 'none',
-      }}
+      className="search-premium relative flex items-center w-full"
     >
-      {/* Search icon */}
-      <span className="absolute left-3 text-[var(--muted)] text-sm pointer-events-none select-none">
+      {/* Animated search icon */}
+      <motion.span
+        className="absolute left-3.5 text-sm pointer-events-none select-none"
+        animate={{
+          color: focused ? 'var(--gold)' : 'var(--muted2)',
+          scale: focused ? 1.1 : 1,
+        }}
+        transition={{ duration: 0.2 }}
+        style={{ color: 'var(--muted2)' }}
+      >
         🔍
-      </span>
+      </motion.span>
 
       <input
         ref={inputRef}
@@ -44,19 +46,27 @@ function SearchBar({ onSearch }) {
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
         placeholder="Search movies, actors..."
-        className="w-full bg-transparent text-[var(--text)] text-sm font-sans placeholder-[var(--muted2)] pl-9 pr-9 py-[9px] focus:outline-none"
+        className="w-full bg-transparent text-[var(--text)] text-sm font-sans placeholder-[var(--muted2)] pl-10 pr-10 py-[10px] focus:outline-none"
       />
 
-      {/* Clear button */}
-      {query && (
-        <button
-          id="search-clear"
-          onClick={handleClear}
-          className="absolute right-3 text-[var(--muted)] hover:text-[#F5C518] transition-colors duration-150 text-base leading-none"
-        >
-          ✕
-        </button>
-      )}
+      {/* Animated clear button */}
+      <AnimatePresence>
+        {query && (
+          <motion.button
+            id="search-clear"
+            onClick={handleClear}
+            initial={{ opacity: 0, scale: 0.5, rotate: -90 }}
+            animate={{ opacity: 1, scale: 1, rotate: 0 }}
+            exit={{ opacity: 0, scale: 0.5, rotate: 90 }}
+            transition={{ duration: 0.2 }}
+            whileHover={{ scale: 1.2, color: 'var(--gold)' }}
+            whileTap={{ scale: 0.8 }}
+            className="absolute right-3.5 text-[var(--muted)] hover:text-[var(--gold)] transition-colors duration-150 text-base leading-none"
+          >
+            ✕
+          </motion.button>
+        )}
+      </AnimatePresence>
     </div>
   )
 }

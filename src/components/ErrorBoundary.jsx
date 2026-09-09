@@ -17,20 +17,22 @@ class ErrorBoundary extends Component {
   render() {
     if (this.state.hasError) {
       return (
-        <main className="min-h-screen flex flex-col items-center justify-center gap-4 px-6 text-center">
-          <p className="text-5xl">💥</p>
-          <h1 className="text-white text-2xl font-bold font-sans">
-            Something broke.
-          </h1>
-          <p className="text-[#444] font-mono text-sm max-w-sm">
-            An unexpected error occurred. Please refresh the page.
-          </p>
-          <button
-            onClick={() => window.location.reload()}
-            className="mt-2 text-[0.8rem] font-mono text-gold border border-gold px-5 py-2 rounded hover:bg-gold hover:text-black transition-all duration-200"
-          >
-            Refresh Page
-          </button>
+        <main className="min-h-screen flex flex-col items-center justify-center gap-4 px-6 text-center relative z-[1]">
+          <div className="glass-card p-14 flex flex-col items-center gap-5 max-w-md">
+            <p className="text-6xl">💥</p>
+            <h1 className="text-[var(--text)] text-2xl font-bold font-sans tracking-tight">
+              Something broke
+            </h1>
+            <p className="text-[var(--muted2)] font-mono text-sm max-w-sm leading-relaxed">
+              An unexpected error occurred. Please refresh the page to try again.
+            </p>
+            <button
+              onClick={() => window.location.reload()}
+              className="btn-gold mt-2"
+            >
+              Refresh Page
+            </button>
+          </div>
         </main>
       )
     }

@@ -8,10 +8,11 @@
 :root {
   --gold: #f5c518;
   --gold-dim: rgba(245, 197, 24, 0.15);
-  --bg: #080808;
-  --surface: #101010;
-  --surface2: #181818;
-  --border: #1e1e1e;
+  --gold-glow: rgba(245, 197, 24, 0.25);
+  --bg: #060608;
+  --surface: #0c0c10;
+  --surface2: #141418;
+  --border: #1a1a22;
   --text: #ffffff;
   --muted: #666666;
   --muted2: #444444;
@@ -25,6 +26,7 @@ html.light {
   --text: #0a0a0a;
   --muted: #666666;
   --muted2: #999999;
+  --gold-glow: rgba(245, 197, 24, 0.12);
 }
 
 /* ── Base ─────────────────────────────────────────────────────── */
@@ -37,9 +39,51 @@ body {
   color: var(--text);
   font-family: "Inter", sans-serif;
   transition:
-    background-color 0.3s ease,
-    color 0.3s ease;
+    background-color 0.4s ease,
+    color 0.4s ease;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ── Ambient Background ──────────────────────────────────────── */
+body::before {
+  content: '';
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background:
+    radial-gradient(ellipse 600px 600px at 20% 20%, rgba(245, 197, 24, 0.04) 0%, transparent 70%),
+    radial-gradient(ellipse 500px 500px at 80% 80%, rgba(245, 197, 24, 0.03) 0%, transparent 70%),
+    radial-gradient(ellipse 400px 400px at 50% 50%, rgba(120, 80, 200, 0.025) 0%, transparent 70%);
+  animation: ambientDrift 25s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes ambientDrift {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(2%, -3%) rotate(1deg); }
+  66% { transform: translate(-2%, 2%) rotate(-1deg); }
+  100% { transform: translate(1%, -1%) rotate(0.5deg); }
+}
+
+html.light body::before {
+  background:
+    radial-gradient(ellipse 600px 600px at 20% 20%, rgba(245, 197, 24, 0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 500px 500px at 80% 80%, rgba(245, 197, 24, 0.04) 0%, transparent 70%);
+}
+
+/* ── Noise Texture Overlay ───────────────────────────────────── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.5;
 }
 
 /* ── Scrollbar ────────────────────────────────────────────────── */
@@ -52,6 +96,7 @@ body {
 ::-webkit-scrollbar-thumb {
   background: var(--muted2);
   border-radius: 99px;
+  transition: background 0.3s;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--gold);
@@ -63,14 +108,10 @@ body {
   color: #000;
 }
 
-/* ── Shimmer animation for skeleton ──────────────────────────── */
+/* ── Shimmer Animation ───────────────────────────────────────── */
 @keyframes shimmer {
-  0% {
-    background-position: -600px 0;
-  }
-  100% {
-    background-position: 600px 0;
-  }
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
 }
 
 .skeleton-shimmer {
@@ -90,7 +131,7 @@ html.light .skeleton-shimmer {
   animation: shimmer 1.6s infinite linear;
 }
 
-/* ── Fade-in animation ────────────────────────────────────────── */
+/* ── Fade-in Animation ────────────────────────────────────────── */
 @keyframes fadeUp {
   from {
     opacity: 0;
@@ -106,7 +147,7 @@ html.light .skeleton-shimmer {
   animation: fadeUp 0.5s ease both;
 }
 
-/* ── Card glow on hover ───────────────────────────────────────── */
+/* ── Card Glow on Hover ───────────────────────────────────────── */
 @keyframes cardGlow {
   from {
     box-shadow: 0 0 0 0 rgba(245, 197, 24, 0);
@@ -116,22 +157,31 @@ html.light .skeleton-shimmer {
   }
 }
 
-/* ── Hero gradient text ───────────────────────────────────────── */
+/* ── Hero Gradient Text ───────────────────────────────────────── */
 .gradient-text {
-  background: linear-gradient(135deg, #ffffff 0%, #f5c518 60%, #e09c00 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #f5c518 50%, #e8a800 100%);
+  background-size: 200% 200%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  animation: gradientShift 4s ease infinite;
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
 }
 
 html.light .gradient-text {
   background: linear-gradient(135deg, #1a1a1a 0%, #c49600 60%, #a07800 100%);
+  background-size: 200% 200%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  animation: gradientShift 4s ease infinite;
 }
 
-/* ── Pulse ring on favourite button ──────────────────────────── */
+/* ── Pulse Ring on Favourite Button ──────────────────────────── */
 @keyframes pulseRing {
   0% {
     transform: scale(1);
@@ -139,7 +189,7 @@ html.light .gradient-text {
   }
   70% {
     transform: scale(1.15);
-    box-shadow: 0 0 0 8px rgba(245, 197, 24, 0);
+    box-shadow: 0 0 0 10px rgba(245, 197, 24, 0);
   }
   100% {
     transform: scale(1);
@@ -151,23 +201,23 @@ html.light .gradient-text {
   animation: pulseRing 0.4s ease;
 }
 
-/* ── Navbar glass ─────────────────────────────────────────────── */
+/* ── Navbar Glass ─────────────────────────────────────────────── */
 .navbar-glass {
-  background: rgba(8, 8, 8, 0.88);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(6, 6, 8, 0.75);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
 }
 
 html.light .navbar-glass {
-  background: rgba(250, 250, 250, 0.92);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 0 1px 12px rgba(0, 0, 0, 0.06);
+  background: rgba(250, 250, 250, 0.82);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 1px 20px rgba(0, 0, 0, 0.06);
 }
 
-/* ── Theme toggle pill ────────────────────────────────────────── */
+/* ── Theme Toggle Pill ────────────────────────────────────────── */
 .theme-toggle {
   position: relative;
   display: inline-flex;
@@ -178,12 +228,13 @@ html.light .navbar-glass {
   background: var(--surface2);
   border: 1.5px solid var(--border);
   cursor: pointer;
-  transition: background 0.3s ease, border-color 0.3s ease;
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
   flex-shrink: 0;
 }
 
 .theme-toggle:hover {
-  border-color: #F5C518;
+  border-color: var(--gold);
+  box-shadow: 0 0 12px rgba(245, 197, 24, 0.15);
 }
 
 .theme-toggle .toggle-thumb {
@@ -192,14 +243,14 @@ html.light .navbar-glass {
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: #F5C518;
+  background: var(--gold);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 11px;
   line-height: 1;
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 2px 8px rgba(245, 197, 24, 0.3);
 }
 
 .theme-toggle.is-light .toggle-thumb {
@@ -218,8 +269,217 @@ html.light .navbar-glass {
   color: var(--muted);
 }
 
-/* ── Shimmer Animation ───────────────────────────────────────── */
-@keyframes shimmer {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
+/* ── Floating Particles ──────────────────────────────────────── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
 }
+
+.particle {
+  position: fixed;
+  width: 3px;
+  height: 3px;
+  background: var(--gold);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+}
+
+/* ── Premium Button Styles ───────────────────────────────────── */
+.btn-gold {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--gold);
+  border: 1.5px solid var(--gold);
+  padding: 0.55rem 1.4rem;
+  border-radius: 8px;
+  background: transparent;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+}
+
+.btn-gold::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: -1;
+}
+
+.btn-gold:hover {
+  color: #000;
+  border-color: var(--gold);
+  box-shadow: 0 4px 24px rgba(245, 197, 24, 0.25);
+}
+
+.btn-gold:hover::before {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* ── Divider Glow ────────────────────────────────────────────── */
+.divider-glow {
+  position: relative;
+  border: none;
+  height: 1px;
+  background: var(--border);
+}
+
+.divider-glow::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: -1px;
+  width: 120px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+  border-radius: 2px;
+  animation: dividerPulse 3s ease-in-out infinite;
+}
+
+@keyframes dividerPulse {
+  0%, 100% { opacity: 0.4; width: 80px; }
+  50% { opacity: 1; width: 160px; }
+}
+
+/* ── Badge Glow ──────────────────────────────────────────────── */
+.badge-glow {
+  box-shadow: 0 0 8px rgba(245, 197, 24, 0.3);
+  animation: badgePulse 2s ease-in-out infinite;
+}
+
+@keyframes badgePulse {
+  0%, 100% { box-shadow: 0 0 6px rgba(245, 197, 24, 0.2); }
+  50% { box-shadow: 0 0 14px rgba(245, 197, 24, 0.4); }
+}
+
+/* ── Glass Card ──────────────────────────────────────────────── */
+.glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+}
+
+html.light .glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* ── Animated Underline ──────────────────────────────────────── */
+.animated-underline {
+  position: relative;
+}
+
+.animated-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0;
+  height: 2px;
+  background: var(--gold);
+  transition: width 0.3s ease;
+  border-radius: 1px;
+}
+
+.animated-underline:hover::after {
+  width: 100%;
+}
+
+/* ── Smooth Focus Ring ───────────────────────────────────────── */
+*:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ── Float Up Animation (Particles) ──────────────────────────── */
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) rotate(0deg) scale(1);
+    opacity: 0;
+  }
+  5% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 0.3;
+  }
+  95% {
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(-110vh) rotate(720deg) scale(0.3);
+    opacity: 0;
+  }
+}
+
+/* ── Navbar Gold Bar Glow ────────────────────────────────────── */
+.navbar-gold-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, var(--gold) 30%, var(--gold) 70%, transparent 100%);
+  z-index: 1;
+}
+
+.navbar-gold-bar::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: inherit;
+  filter: blur(6px);
+  opacity: 0.5;
+}
+
+/* ── Logo Hover Glow ─────────────────────────────────────────── */
+.logo-glow:hover .logo-icon {
+  box-shadow: 0 0 16px rgba(245, 197, 24, 0.4);
+}
+
+/* ── Nav Link Active Dot ─────────────────────────────────────── */
+.nav-active-dot {
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 6px rgba(245, 197, 24, 0.5);
+}
+
+/* ── Search Input Premium ────────────────────────────────────── */
+.search-premium {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.search-premium:focus-within {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 4px rgba(245, 197, 24, 0.08), 0 4px 20px rgba(245, 197, 24, 0.06);
+}
+
+html.light .search-premium:focus-within {
+  box-shadow: 0 0 0 4px rgba(245, 197, 24, 0.1), 0 4px 20px rgba(245, 197, 24, 0.08);
+}
+

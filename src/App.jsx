@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 import Navbar from './components/Navbar'
+import FloatingParticles from './components/FloatingParticles'
 import Home from './pages/Home'
 import Favourites from './pages/Favourites'
 import NotFound from './pages/NotFound'
@@ -25,6 +26,7 @@ function App() {
 
   return (
     <BrowserRouter>
+      <FloatingParticles />
       <Navbar onSearch={setSearchQuery} />
       <AnimatedRoutes searchQuery={searchQuery} />
     </BrowserRouter>
