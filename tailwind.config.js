@@ -14,7 +14,7 @@ export default {
         border: '#1f1f1f',
       },
       fontFamily: {
-        sans: ['DM Sans', 'sans-serif'],
+        sans: ['Inter', 'sans-serif'],
         mono: ['JetBrains Mono', 'monospace'],
       },
     },

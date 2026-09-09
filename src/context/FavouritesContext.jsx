@@ -26,12 +26,17 @@ export function FavouritesProvider({ children }) {
     return favourites.some(m => m.id === id)
   }
 
+  const clearFavourites = () => {
+    setFavourites([])
+  }
+
   return (
     <FavouritesContext.Provider value={{
       favourites,
       addFavourite,
       removeFavourite,
-      isFavourite
+      isFavourite,
+      clearFavourites,
     }}>
       {children}
     </FavouritesContext.Provider>
