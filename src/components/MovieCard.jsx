@@ -1,6 +1,23 @@
+import { motion } from 'framer-motion'
 import { useFavourites } from '../context/FavouritesContext'
 
-function MovieCard({ movie }) {
+const cardVariants = {
+  hidden: {
+    opacity: 0,
+    y: 30,
+  },
+  visible: (i) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: i * 0.06,
+      duration: 0.4,
+      ease: 'easeOut',
+    },
+  }),
+}
+
+function MovieCard({ movie, index }) {
   const { addFavourite, removeFavourite, isFavourite } = useFavourites()
   const isFav = isFavourite(movie.id)
 
@@ -12,16 +29,23 @@ function MovieCard({ movie }) {
   const rating = movie.vote_average?.toFixed(1)
 
   return (
-    <div className="group relative rounded-[10px] overflow-hidden cursor-pointer">
-
+    <motion.div
+      className="group relative rounded-[10px] overflow-hidden cursor-pointer"
+      variants={cardVariants}
+      initial="hidden"
+      animate="visible"
+      custom={index}
+      whileHover={{ scale: 1.03 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+    >
       {/* Poster */}
       {poster
         ? <img
             src={poster}
             alt={movie.title}
-            className="w-full block rounded-[10px] group-hover:scale-[1.03] transition-transform duration-300"
+            className="w-full block rounded-[10px]"
           />
-        : <div className="w-full aspect-[2/3] bg-[#111] rounded-[10px] flex items-center justify-center text-[#444] text-sm font-mono">
+        : <div className="w-full aspect-[2/3] bg-[#111] rounded-[10px] flex items-center justify-center text-[#444] text-xs font-mono">
             No Poster
           </div>
       }
@@ -34,22 +58,24 @@ function MovieCard({ movie }) {
       )}
 
       {/* Fav Button */}
-      <button
+      <motion.button
         onClick={(e) => {
           e.stopPropagation()
           isFav ? removeFavourite(movie.id) : addFavourite(movie)
         }}
-        className={`absolute top-2 right-2 w-[32px] h-[32px] rounded-full flex items-center justify-center text-[1rem] transition-all duration-200 hover:scale-125 z-10 border
+        whileTap={{ scale: 0.85 }}
+        whileHover={{ scale: 1.25 }}
+        className={`absolute top-2 right-2 w-[32px] h-[32px] rounded-full flex items-center justify-center text-[1rem] z-10 border transition-colors duration-200
           ${isFav
             ? 'bg-gold text-black border-gold'
             : 'bg-black/70 text-white border-[#333] hover:border-gold hover:text-gold'
           }`}
       >
         ♥
-      </button>
+      </motion.button>
 
       {/* Overlay */}
-      <div className="absolute bottom-0 left-0 right-0 px-3 pt-8 pb-3 bg-gradient-to-t from-black/97 to-transparent rounded-b-[10px] translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+      <div className="absolute bottom-0 left-0 right-0 px-3 pt-8 pb-3 bg-gradient-to-t from-black to-transparent rounded-b-[10px] translate-y-full group-hover:translate-y-0 transition-transform duration-300">
         <h3 className="text-white text-[0.88rem] font-semibold font-sans leading-tight line-clamp-2 mb-1">
           {movie.title}
         </h3>
@@ -59,7 +85,7 @@ function MovieCard({ movie }) {
         </div>
       </div>
 
-    </div>
+    </motion.div>
   )
 }
 

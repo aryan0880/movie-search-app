@@ -1,0 +1,160 @@
+.movie-card {
+  cursor: pointer;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.movie-card:hover {
+  transform: scale(1.03);
+}
+
+.card-poster {
+  position: relative;
+  width: 100%;
+}
+
+.card-poster img {
+  width: 100%;
+  display: block;
+  border-radius: 8px;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+}
+
+.no-poster {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  background: #1a1a1a;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #444;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+}
+
+.card-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2rem 0.75rem 0.75rem;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, transparent 100%);
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+  border-radius: 0 0 8px 8px;
+}
+
+.movie-card:hover .card-overlay {
+  transform: translateY(0);
+}
+
+.card-title {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 0.4rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.3;
+}
+
+.card-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-year {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: #888;
+}
+
+.card-rating {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: #F5C518;
+}
+
+.fav-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: rgba(0, 0, 0, 0.6);
+  border: none;
+  color: #444;
+  font-size: 0.8rem;
+  width: 32px;
+  height: 32px;
+  border-radius: 100%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease, transform 0.2s ease;
+  z-index: 10;
+}
+
+.fav-btn:hover {
+  color: red;
+  transform: scale(1.55);
+}
+
+.fav-btn.active {
+  color: yellow;  
+}
+
+/* ── Tablet (≤768px) ──────────────────────────────────────────── */
+@media (max-width: 768px) {
+  /* Always show overlay on touch — no hover available */
+  .card-overlay {
+    transform: translateY(0);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.98) 0%, transparent 100%);
+  }
+
+  .card-title {
+    font-size: 0.8rem;
+  }
+
+  .card-year {
+    font-size: 0.7rem;
+  }
+
+  .card-rating {
+    font-size: 0.7rem;
+  }
+
+  .fav-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 0.9rem;
+  }
+}
+
+/* ── Mobile (≤480px) ──────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .card-title {
+    font-size: 0.75rem;
+  }
+
+  .card-overlay {
+    padding: 1.5rem 0.5rem 0.5rem;
+  }
+
+  .fav-btn {
+    width: 24px;
+    height: 24px;
+    font-size: 0.8rem;
+  }
+}
